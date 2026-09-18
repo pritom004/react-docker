@@ -1,0 +1,16 @@
+name: CI
+on: 
+    push:
+        branches: 
+            - master
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+            - name: Build Docker Image
+              run: docker build -t pritom06/docker-react -f Dockerfile.dev .
+            - name: Run tests
+              run: docker run pritom06/docker-react npm run test -- --coverage
+            
